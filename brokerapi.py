@@ -305,6 +305,11 @@ class capitalcom:
                 break
             else:
                 lsStartDate = df1.snapshotTime[999]
-                
+                        
+        # Index auf Datetime stellen
+        lsFormat = '%Y-%m-%dT%H:%M:%S'
+        df['index'] = pd.to_datetime(df['snapshotTime'], format=lsFormat)
+        df = df.set_index(pd.DatetimeIndex(df['index']))
+
         # Dataframe zurückgeben
         return df
