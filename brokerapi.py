@@ -215,7 +215,7 @@ class capitalcom:
         self.session_end()
         del self
     
-    def get_price(self, epic:str, resolution:str, start:str, end:str=""):
+    def get_price(self, epic:str, resolution:str, start:str, end:str="") -> object:
         """Liest historische Preisinformation von der API ein
         
         Parameter
