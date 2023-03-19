@@ -1,3 +1,7 @@
+# Module importieren
+#-------------------
+import pandas as pd
+
 class capitalcom:
     """capitalcom (object)
     
@@ -215,7 +219,7 @@ class capitalcom:
         self.session_end()
         del self
     
-    def get_price(self, epic:str, resolution:str, start:str, end:str="") -> object:
+    def get_price(self, epic:str, resolution:str, start:str, end:str="") -> pd.DataFrame:
         """Liest historische Preisinformation von der API ein
         
         Parameter
