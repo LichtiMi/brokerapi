@@ -25,7 +25,7 @@ class capitalcom:
     
     # Konstruktor
     def __init__(self):
-        """Initialisiert die Klasse und list die Verbindungs-
+        """Initialisiert die Klasse und liest die Verbindungs-
         informationen aus der Datei settings.yaml aus.
         """
         
