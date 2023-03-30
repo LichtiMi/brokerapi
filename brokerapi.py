@@ -30,27 +30,35 @@ class capitalcom:
         """
         
         # Konfigurationseinstellungen importieren
+        #----------------------------------------
         from dynaconf import settings, Validator
 
         # Validator der Settings konfigurieren
+        #-------------------------------------
         settings.validators.register(
             
             # Folgende Parameter müssen existieren
+            #-------------------------------------
             Validator('USER', 'APIPASSWORD', 'APIKEY', must_exist=True),
 
             # Ensure some parameter mets a condition
-            # conditions: (eq, ne, lt, gt, lte, gte, identity, is_type_of, is_in, is_not_in)
+            # conditions: (eq, ne, lt, gt, lte, gte, identity,
+            # is_type_of, is_in, is_not_in)
+            #-------------------------------------------------
             Validator('ENVIRONMENT', is_in=['test','live']),
 
         )        
         
         # Einstellungen abspeichern
+        #--------------------------
         self.__psUser = settings.CONNECTION["USER"]
         self.__psAPIPassword = settings.CONNECTION["APIPASSWORD"]
         self.__psAPIKey = settings.CONNECTION["APIKEY"]
         self.__pbTest = ( settings.APP["ENVIRONMENT"] == "test" )
         
-        # Wenn wir im Testenvironment sind, dann den Connectionstring entsprechend setzen
+        # Wenn wir im Testenvironment sind, dann den Connectionstring
+        # entsprechend setzen
+        #------------------------------------------------------------
         if self.__pbTest:
             self.__psConnectionURL = "demo-api-capital.backend-capital.com"
         else:
@@ -66,15 +74,19 @@ class capitalcom:
         befüllten Variablen."""
 
         # Header zurücksetzen
+        #--------------------
         self.__dictHeader = ""
 
         # Token und CST zurücksetzen
+        #---------------------------
         self.__pdictToken = ""
 
         # Verbindung zurücksetzen
+        #------------------------
         self.__pbConnected = False
         
         # Keepalives zurücksetzen
+        #------------------------
         self.keepalive = False
         
     def __keepalive__(self):
@@ -92,7 +104,10 @@ class capitalcom:
         self.ping()
         
         # Vor Ablauf des Timeouts ein Ping absenden
-        self.__pthrThread = threading.Timer(self.__piPingPeriod, self.__keepalive__).start() # called every minute        
+        # Wird alle 60 Sekunden aufgerufen
+        #------------------------------------------
+        self.__pthrThread = \
+            threading.Timer(self.__piPingPeriod, self.__keepalive__).start() 
         
     def session_new(self):
         """Stellt eine neue Verbindung zu Capital.com her mit den
@@ -142,14 +157,15 @@ class capitalcom:
         self.__pbConnected = True
         self.keepalive = True
         
-        # Vor Ablauf des Timeouts ein Ping absenden
-        self.__pthrThread = threading.Timer(self.__piPingPeriod, self.__keepalive__).start() # called every minute
+        # Keepalive starten
+        #------------------
+        self.__pthrThread = \
+            threading.Timer(self.__piPingPeriod, self.__keepalive__).start()
     
     def session_end(self):
         """Beendet eine bestehende Verbindung zu Capital.com"""
         
         # Erforderliche Module laden
-        import json
         import http.client
     
         # Wenn keine Verbindung besteht, dass alle Variablen leeren
@@ -167,13 +183,6 @@ class capitalcom:
         # Send Request
         conn.request("DELETE", "/api/v1/session", payload, self.__pdictToken)
 
-        # Antwort auslesen
-        res = conn.getresponse()
-        data = res.read()
-
-        # Daten im JSON Format einlesen
-        ldJsonData = json.loads(data.decode("utf-8"))
-        
         # Variablen löschen
         self.__clear_vars__()
 
@@ -219,7 +228,12 @@ class capitalcom:
         self.session_end()
         del self
     
-    def get_price(self, epic:str, resolution:str, start:str, end:str="") -> pd.DataFrame:
+    def get_price(
+            self, 
+            epic:str, 
+            resolution:str, 
+            start:str, 
+            end:str="") -> pd.DataFrame:
         """Liest historische Preisinformation von der API ein
         
         Parameter
@@ -250,7 +264,9 @@ class capitalcom:
         x = lsParameter.find(resolution)
         if x < 0:
             raise TypeError(
-                'Als Werte für resolution sind nur folgende Werte erlaubt: {}'.format(lsParameter))
+                'Als Werte für resolution sind nur folgende Werte erlaubt: {}'\
+                    .format(lsParameter)
+            )
         
         # Startwert überprüfen
         datetime.strptime(start, "%Y-%m-%dT%H:%M:%S")
@@ -274,7 +290,8 @@ class capitalcom:
         while True:
 
             # Request zusammenstellen
-            lsRequest = "/api/v1/prices/" + epic + "?resolution=" + resolution + "&max=1000&from=" + lsStartDate
+            lsRequest = "/api/v1/prices/" + epic + "?resolution=" + resolution + \
+                "&max=1000&from=" + lsStartDate
             
             # Wenn ein Enddatum angegeben wurde, dann dem Request hinzufügen
             if lsEndDate != "":
@@ -296,15 +313,17 @@ class capitalcom:
             # Wenn in df bereits Daten vorhanden sind, dann die Daten hinzufügen
             if len(df) > 0:
                 old_df = df
-                df = pd.concat([old_df,df1],ignore_index=True)  # Ignoreindex führt den Index fort
+                # Ignoreindex führt den Index fort
+                #---------------------------------
+                df = pd.concat([old_df,df1],ignore_index=True)  
             else:
                 df = df1
 
             #print(len(df))
             print(".", end="")
 
-            # Wenn weniger als 1000 Zeilen heruntergeladen wurden, dann den nächsten Block anfragen
-            # andernfalls ist die While Schleife zu beenden
+            # Wenn weniger als 1000 Zeilen heruntergeladen wurden, dann den nächsten
+            # Block anfragen andernfalls ist die While Schleife zu beenden
             if ( len(df1) < 1000 ):
                 break
             else:
