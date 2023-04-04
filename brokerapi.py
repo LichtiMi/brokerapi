@@ -10,7 +10,9 @@ import threading
 import json
 import http.client
 import pandas as pd
-from dynaconf import Dynaconf, Validator
+from config import settings  # pylint: disable=import-error
+
+# liegt im Verzeichnis der Hauptanwendung
 
 
 class CapitalCom:
@@ -52,28 +54,12 @@ class CapitalCom:
         informationen aus der Datei settings.yaml aus.
         """
 
-        # Settings einlesen
-        # -----------------
-        settings = Dynaconf(
-            validators=[
-                #        settings.validators.register(
-                # Folgende Parameter müssen existieren
-                # ------------------------------------
-                Validator("USER", "APIPASSWORD", "APIKEY", must_exist=True),
-                # Ensure some parameter mets a condition
-                # conditions: (eq, ne, lt, gt, lte, gte, identity,
-                # is_type_of, is_in, is_not_in)
-                # ------------------------------------------------
-                Validator("ENVIRONMENT", is_in=["test", "live"]),
-            ]
-        )
-
         # Einstellungen abspeichern
         # -------------------------
-        self.__User.sName = settings.CONNECTION["USER"]  # type: ignore
-        self.__User.sPassword = settings.CONNECTION["APIPASSWORD"]  # type: ignore
-        self.__User.sAPIKey = settings.CONNECTION["APIKEY"]  # type: ignore
-        self.__API.bTest = settings.CONNECTION["ENVIRONMENT"] == "test"  # type: ignore
+        self.__User.sName = settings.USER  # type: ignore
+        self.__User.sPassword = settings.APIPASSWORD  # type: ignore
+        self.__User.sAPIKey = settings.APIKEY  # type: ignore
+        self.__API.bTest = settings.ENVIRONMENT == "test"  # type: ignore
 
         # Wenn wir im Testenvironment sind, dann den Connectionstring
         # entsprechend setzen
