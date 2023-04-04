@@ -4,7 +4,7 @@ Modul zum einheitlichen bedienen der APIs unterschiedlicher Broker."""
 
 # Module importieren
 # ------------------
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import datetime
 import threading
 import json
@@ -36,8 +36,10 @@ class CapitalCom:
         sConnectionURL: str = ""  # Verbindungsstring
         bTest: bool = True  # Testumgebung
         bConnected: bool = False  # Wurde eine Verbindung aufgebaut?
-        dHeader: dict = {}  # Headervariablen, die übergeben wurden
-        dToken: dict = {}  # Security-Token der Session
+        dHeader: dict = field(
+            default_factory=dict
+        )  # Headervariablen, die übergeben wurden
+        dToken: dict = field(default_factory=dict)  # Security-Token der Session
         iPingPeriod: float = 300.0  # Dauer zwischen den Ping Wiederholungen
 
     __pbDebug: bool = False  # Soll Debug-Output ausgegeben werden?
