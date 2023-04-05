@@ -239,7 +239,12 @@ class CapitalCom:
             Enddatum und -uhrzeit bis zu dem die Daten eingelesen werden sollen.
             Wenn kein Enddatum angegeben wurde, dann wird bis zum aktuellen
             Zeitpunkt eingelesen.
-            Format: YYYY-MM-DDTHH:MM:SS"""
+            Format: YYYY-MM-DDTHH:MM:SS
+
+        Return
+        ------
+        pd.DataFrame
+            DataFrame mit den Candles des Epics im definierten Zeitraum."""
 
         # Variablendefinition
         # -------------------
