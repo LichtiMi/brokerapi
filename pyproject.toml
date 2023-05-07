@@ -1,0 +1,30 @@
+[project]
+name = "brokerapi"
+version = "2023.05.07"
+description = "Module for managing communication with different API Gateways of different brokers"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {file = "LICENSE"}
+keywords = ["Broker", "API"]
+authors = [
+  {email = "Michael Lichtenegger"},
+  {name = "Michael Lichtenegger"}
+]
+maintainers = [
+  {name = "Michael Lichtenegger", email = "Michael Lichtenegger"}
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python"
+]
+dynamic = ["dependencies"]
+
+[tool.setuptools.dynamic]
+dependencies = {file = ["requirements.txt"]}
+
+[tool.setuptools.packages.find]
+where = ["."]
+
+[build-system]
+requires = ["setuptools >= 61.0.0"]
+build-backend = "setuptools.build_meta"
