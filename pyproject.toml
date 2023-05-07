@@ -7,11 +7,11 @@ requires-python = ">=3.10"
 license = {file = "LICENSE"}
 keywords = ["Broker", "API"]
 authors = [
-  {email = "Michael Lichtenegger"},
+  {email = "75341718+LichtiMi@users.noreply.github.com"},
   {name = "Michael Lichtenegger"}
 ]
 maintainers = [
-  {name = "Michael Lichtenegger", email = "Michael Lichtenegger"}
+  {name = "Michael Lichtenegger", email = "75341718+LichtiMi@users.noreply.github.com"}
 ]
 classifiers = [
   "Development Status :: 4 - Beta",
