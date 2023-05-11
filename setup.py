@@ -1,3 +1,6 @@
+"""
+setup Modul für brokerapi
+"""
 #!/usr/bin/env python
 
 from setuptools import setup
