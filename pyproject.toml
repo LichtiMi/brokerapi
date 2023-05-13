@@ -23,7 +23,7 @@ dynamic = ["dependencies"]
 dependencies = {file = ["requirements.txt"]}
 
 [tool.setuptools.packages.find]
-where = ["."]
+where = ["src"]
 
 #[tool.setuptools]
 #packages = ["brokerapi", "config"]
