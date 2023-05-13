@@ -1,9 +1,10 @@
 [project]
 name = "brokerapi"
-version = "2023.05.07"
+version = "0.1.07"
 description = "Module for managing communication with different API Gateways of different brokers"
 readme = "README.md"
 requires-python = ">=3.10"
+packages = ["brokerapi", "config"]
 license = {file = "LICENSE"}
 keywords = ["Broker", "API"]
 authors = [
@@ -24,7 +25,6 @@ dependencies = {file = ["requirements.txt"]}
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["brokerapi", "config"]
 
 [build-system]
 requires = ["setuptools >= 61.0.0"]
