@@ -19,6 +19,9 @@ classifiers = [
 ]
 dynamic = ["dependencies"]
 
+[tool.setuptools]
+packages = ["brokerapi", "config"]
+
 [tool.setuptools.dynamic]
 dependencies = {file = ["requirements.txt"]}
 
