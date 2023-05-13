@@ -15,18 +15,16 @@ maintainers = [
 ]
 classifiers = [
   "Development Status :: 4 - Beta",
-  "Programming Language :: Python"
+  "Programming Language :: Python :: 3"
 ]
 dynamic = ["dependencies"]
-
-[tool.setuptools]
-packages = ["brokerapi", "config"]
 
 [tool.setuptools.dynamic]
 dependencies = {file = ["requirements.txt"]}
 
 [tool.setuptools.packages.find]
 where = ["."]
+packages = ["brokerapi", "config"]
 
 [build-system]
 requires = ["setuptools >= 61.0.0"]
