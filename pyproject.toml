@@ -4,7 +4,6 @@ version = "0.1.07"
 description = "Module for managing communication with different API Gateways of different brokers"
 readme = "README.md"
 requires-python = ">=3.10"
-packages = ["brokerapi", "config"]
 license = {file = "LICENSE"}
 keywords = ["Broker", "API"]
 authors = [
@@ -19,6 +18,9 @@ classifiers = [
   "Programming Language :: Python :: 3"
 ]
 dynamic = ["dependencies"]
+
+[tool.setuptools]
+packages = ["brokerapi", "config"]
 
 [tool.setuptools.dynamic]
 dependencies = {file = ["requirements.txt"]}
