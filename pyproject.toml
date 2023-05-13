@@ -24,7 +24,7 @@ dependencies = {file = ["requirements.txt"]}
 
 [tool.setuptools.packages.find]
 where = ["."]
-packages = ["brokerapi", "config"]
+include = ["brokerapi", "config"]
 
 [build-system]
 requires = ["setuptools >= 61.0.0"]
