@@ -6,7 +6,6 @@ readme = "README.md"
 requires-python = ">=3.10"
 license = {file = "LICENSE"}
 keywords = ["Broker", "API"]
-package_dir={"": str(".")}
 authors = [
   {email = "75341718+LichtiMi@users.noreply.github.com"},
   {name = "Michael Lichtenegger"}
