@@ -1,6 +1,6 @@
 [project]
 name = "brokerapi"
-version = "0.1.7-258"
+version = "0.1.7-260"
 description = "Module for managing communication with different API Gateways of different brokers"
 readme = "README.md"
 requires-python = ">=3.10"
