@@ -6,20 +6,20 @@
 # Festlegen, welcher teil erhöht werden soll
 #-------------------------------------------
 if [ "$1" == "" ]; then
-	range="patch"
+	part="patch"
 else
-	range="$1"
+	part="$1"
 fi
 
 # Build und Version auslesen und neuen Versionsstring zusammensetzen
 #-------------------------------------------------------------------
-build=$(bump2version --allow-dirty --dry-run --list release | grep new_version | sed -r s,"^.*-",,)
-version=$(bump2version --allow-dirty --dry-run --list $range | grep new_version | sed -r s,"^.*=",, | sed -r s,"\-.*$",,)
+build=$(bump2version --allow-dirty --dry-run --list build | grep new_version | sed -r s,"^.*-",,)
+version=$(bump2version --allow-dirty --dry-run --list $part | grep new_version | sed -r s,"^.*=",, | sed -r s,"\-.*$",,)
 new_version="$version-$build"
 
 # Nun Version setzen
 #-------------------
-bump2version --allow-dirty --new_version $new_version 
+bump2version --allow-dirty --new-version $new_version $part
 
 
 
