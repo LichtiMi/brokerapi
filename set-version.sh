@@ -19,7 +19,7 @@ new_version="$version-$build"
 
 # Nun Version setzen
 #-------------------
-bump2version --allow-dirty --new-version $new_version $part
+bump2version --allow-dirty --tag --commit --new-version $new_version $part
 
 
 
